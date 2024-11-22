@@ -55,18 +55,21 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-localization",
       [
         "expo-build-properties",
         {
-          "ios": {
+          "android": {
+            "minSdkVersion": 26,
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
             "newArchEnabled": false
           },
-          "android": {
+          "ios": {
             "newArchEnabled": false
           }
         }
       ],
+      "expo-localization",
       "expo-font"
     ],
     "experiments": {
