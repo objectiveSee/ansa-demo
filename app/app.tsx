@@ -30,7 +30,7 @@ import { customFontsToLoad } from "./theme"
 import Config from "./config"
 import { KeyboardProvider } from "react-native-keyboard-controller"
 import { loadDateFnsLocale } from "./utils/formatDate"
-import { AnsaProvider } from "ansa-react-native"
+import { AnsaProvider, LogLevel } from "ansa-react-native"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
@@ -63,7 +63,13 @@ interface AppProps {
 const clientSecretProvider = async () => {
   // TODO: Implement your client secret provider logic here
   // This should make a request to your backend to get a client secret
+  console.log("🤐🤐🤐🤐 Client secret provider called")
   return "ansa_sk_sandbox_6/bPZ7eSolx0f+3J84aQu9fgypdlgPke"
+}
+
+const handleLog = (message: string) => {
+  // In a real app, you might want to send these logs to your logging service
+  console.log("[Ansa React Native SDK][LOG]", message)
 }
 
 /**
@@ -118,7 +124,12 @@ function App(props: AppProps) {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <KeyboardProvider>
-          <AnsaProvider apiKey={publishableKey} clientSecretProvider={clientSecretProvider}>
+          <AnsaProvider
+            apiKey={publishableKey}
+            clientSecretProvider={clientSecretProvider}
+            logLevel={LogLevel.Verbose}
+            logger={handleLog}
+          >
             <AppNavigator
               linking={linking}
               initialState={initialNavigationState}
